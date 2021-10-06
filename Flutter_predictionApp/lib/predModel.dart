@@ -45,9 +45,53 @@ class _PredModelState extends State<PredModel> {
     print(index);
 
     this.setState(() {
-      if (index==20)
-          predValue='Rice';
       //predValue = "abhi";//index.toString();//output[0][0].toString();
+      if (index==1)
+          predValue='Rice';
+      if (index==2)
+        predValue='Rice';
+      if (index==3)
+        predValue='Rice';
+      if (index==4)
+        predValue='Rice';
+      if (index==5)
+        predValue='Rice';
+      if (index==6)
+        predValue='Rice';
+      if (index==7)
+        predValue='Rice';
+      if (index==8)
+        predValue='Rice';
+      if (index==9)
+        predValue='Rice';
+      if (index==10)
+        predValue='Rice';
+      if (index==11)
+        predValue='Rice';
+      if (index==12)
+        predValue='Rice';
+      if (index==13)
+        predValue='Rice';
+      if (index==14)
+        predValue='Rice';
+      if (index==15)
+        predValue='Rice';
+      if (index==16)
+        predValue='Rice';
+      if (index==17)
+        predValue='Rice';
+      if (index==18)
+        predValue='Rice';
+      if (index==19)
+        predValue='Rice';
+      if (index==20)
+        predValue='Maize';
+      if (index==21)
+        predValue='Rice';
+      if (index==22)
+        predValue='Rice';
+
+
     });
   }
 
