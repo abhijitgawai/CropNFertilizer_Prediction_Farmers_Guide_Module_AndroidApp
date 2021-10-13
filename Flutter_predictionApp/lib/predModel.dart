@@ -17,17 +17,40 @@ class _PredModelState extends State<PredModel> {
     predValue = "click predict button";
   }
   final N_Controller = TextEditingController();
+  final P_Controller = TextEditingController();
+  final K_Controller = TextEditingController();
+  final Temp_Controller = TextEditingController();              //del
+  final Humidity_Controller = TextEditingController();          //del
+  final Ph_Controller = TextEditingController();
+  final Rain_Controller = TextEditingController();              //del
 
   Future<void> predData(  ) async { //String strr
     final interpreter = await Interpreter.fromAsset('ml_model.tflite');
-    var input = [
-      [90.0,42.0,43.0,20.0,82.0,6.0,202.0]
-    ];
+    //var input = [ [90.0,42.0,43.0,20.0,82.0,6.0,202.0] ];
+    var N_ = double.parse(N_Controller.text);
+    var P_ = double.parse(P_Controller.text);
+    var K_ = double.parse(K_Controller.text);
+    var Temp_ = double.parse(Temp_Controller.text);
+    var Humidity_ = double.parse(Humidity_Controller.text);
+    var Ph_ = double.parse(Ph_Controller.text);
+    var Rain_ = double.parse(Rain_Controller.text);
+    
 
+    //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
+    //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
     //print(strr);
+    var input = [[ N_, P_, K_, Temp_, Humidity_, Ph_, Rain_]];
 
     print('THis is controllers input');
     print(  N_Controller.text + ' N_Controller.text');
+    print(  P_Controller.text + ' P_Controller.text');
+    print(  K_Controller.text + ' K_Controller.text');
+    print(  Temp_Controller.text + ' Temp_Controller.text');
+    print(  Humidity_Controller.text + ' Humidity_Controller.text');
+    print(  Ph_Controller.text + ' Ph_Controller.text');
+    print(  Rain_Controller.text + ' Rain_Controller.text');
+
+
 
     var output = List.filled(22, 0).reshape([1, 22]);
     interpreter.run(input, output);
@@ -112,13 +135,73 @@ class _PredModelState extends State<PredModel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextField(                                               // N
               controller: N_Controller,
-
+              keyboardType: TextInputType.number,
               textAlign: TextAlign.left,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'PLEASE ENTER YOUR EMAIL',
+                hintText: 'PLEASE ENTER Nitrogen content',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                              // P
+              controller: P_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Phosphorus Content',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                           // K
+              controller: K_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Potassium Content',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                           // Temp
+              controller: Temp_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Temprature',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                            // Humidity
+              controller: Humidity_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Humidity Content',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                           // Ph
+              controller: Ph_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Ph value',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextField(                                               // Rain
+              controller: Rain_Controller,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER Potassium Content',
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
