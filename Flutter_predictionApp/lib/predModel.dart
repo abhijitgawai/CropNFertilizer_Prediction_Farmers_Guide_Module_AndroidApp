@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:convert';
 //import 'dart:math';
 //import 'package:math_expressions/math_expressions.dart';
 
@@ -24,6 +27,9 @@ class _PredModelState extends State<PredModel> {
   final Ph_Controller = TextEditingController();
   final Rain_Controller = TextEditingController();              //del
 
+  var Temp_api;
+  var Humidity_api;
+
   Future<void> predData(  ) async { //String strr
     final interpreter = await Interpreter.fromAsset('ml_model.tflite');
     //var input = [ [90.0,42.0,43.0,20.0,82.0,6.0,202.0] ];
@@ -34,7 +40,22 @@ class _PredModelState extends State<PredModel> {
     var Humidity_ = double.parse(Humidity_Controller.text);
     var Ph_ = double.parse(Ph_Controller.text);
     var Rain_ = double.parse(Rain_Controller.text);
-    
+
+
+
+    http.Response response = await http.get("https://api.openweathermap.org/data/2.5/weather?q=Akola&units=metric&appid=e43ac111fdcd8670e101cf9d0f9c7749");  // any way this is secret
+    var results =jsonDecode(response.body);
+    // setState ((){
+    //   this.Temp_api=results['main']['temp'];
+    //   this.Humidity_api=results['main']['humidity'];
+    // });
+
+    Temp_api=results['main']['temp'];
+    Humidity_api=results['main']['humidity'];
+
+    print("This is what I wanted below");
+    print(Temp_api.toString());
+    print(Humidity_api.toString());
 
     //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
     //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
@@ -135,6 +156,7 @@ class _PredModelState extends State<PredModel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             TextField(                                               // N
               controller: N_Controller,
               keyboardType: TextInputType.number,
@@ -145,6 +167,7 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                              // P
               controller: P_Controller,
               keyboardType: TextInputType.number,
@@ -155,6 +178,7 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                           // K
               controller: K_Controller,
               keyboardType: TextInputType.number,
@@ -165,6 +189,7 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                           // Temp
               controller: Temp_Controller,
               keyboardType: TextInputType.number,
@@ -175,6 +200,7 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                            // Humidity
               controller: Humidity_Controller,
               keyboardType: TextInputType.number,
@@ -185,6 +211,7 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                           // Ph
               controller: Ph_Controller,
               keyboardType: TextInputType.number,
@@ -195,13 +222,14 @@ class _PredModelState extends State<PredModel> {
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),
+
             TextField(                                               // Rain
               controller: Rain_Controller,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.left,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'PLEASE ENTER Potassium Content',
+                hintText: 'PLEASE ENTER Rain Content',
                 hintStyle: TextStyle(color: Colors.grey),
               ),
             ),

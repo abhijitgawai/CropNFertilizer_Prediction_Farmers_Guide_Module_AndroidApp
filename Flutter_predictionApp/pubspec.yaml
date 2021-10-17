@@ -30,10 +30,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   tflite_flutter: ^0.8.0
   math_expressions: ^2.2.0
+  font_awesome_flutter: ^8.7.0
+  http: ^0.12.0+4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
