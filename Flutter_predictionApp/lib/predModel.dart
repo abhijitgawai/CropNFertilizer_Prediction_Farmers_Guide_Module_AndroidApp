@@ -36,8 +36,8 @@ class _PredModelState extends State<PredModel> {
     var N_ = double.parse(N_Controller.text);
     var P_ = double.parse(P_Controller.text);
     var K_ = double.parse(K_Controller.text);
-    var Temp_ = double.parse(Temp_Controller.text);
-    var Humidity_ = double.parse(Humidity_Controller.text);
+    //var Temp_ = double.parse(Temp_Controller.text);
+    //var Humidity_ = double.parse(Humidity_Controller.text);
     var Ph_ = double.parse(Ph_Controller.text);
     var Rain_ = double.parse(Rain_Controller.text);
 
@@ -56,6 +56,9 @@ class _PredModelState extends State<PredModel> {
     print("This is what I wanted below");
     print(Temp_api.toString());
     print(Humidity_api.toString());
+
+    var Temp_ = double.parse(Temp_api.toString());
+    var Humidity_ = double.parse(Humidity_api.toString());
 
     //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
     //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
