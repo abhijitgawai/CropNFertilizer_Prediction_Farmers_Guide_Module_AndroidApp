@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prediciton_model/predModel.dart';
-
+import 'mainscreen.dart';
 void main() {
   runApp(MyApp());
 }
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PredModel(),
+      home: MainScreen(),
     );
   }
 }
