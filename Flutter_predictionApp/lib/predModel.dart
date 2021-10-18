@@ -22,10 +22,11 @@ class _PredModelState extends State<PredModel> {
   final N_Controller = TextEditingController();
   final P_Controller = TextEditingController();
   final K_Controller = TextEditingController();
-  final Temp_Controller = TextEditingController();              //del
-  final Humidity_Controller = TextEditingController();          //del
+  // final Temp_Controller = TextEditingController();              //del
+  // final Humidity_Controller = TextEditingController();          //del
   final Ph_Controller = TextEditingController();
   final Rain_Controller = TextEditingController();              //del
+  final City_Controller = TextEditingController();
 
   var Temp_api;
   var Humidity_api;
@@ -40,10 +41,11 @@ class _PredModelState extends State<PredModel> {
     //var Humidity_ = double.parse(Humidity_Controller.text);
     var Ph_ = double.parse(Ph_Controller.text);
     var Rain_ = double.parse(Rain_Controller.text);
+    var City_ = City_Controller.text;
 
 
 
-    http.Response response = await http.get("https://api.openweathermap.org/data/2.5/weather?q=Akola&units=metric&appid=e43ac111fdcd8670e101cf9d0f9c7749");  // any way this is secret
+    http.Response response = await http.get("https://api.openweathermap.org/data/2.5/weather?q="+City_.toString()+"&units=metric&appid=e43ac111fdcd8670e101cf9d0f9c7749");  // any way this is secret
     var results =jsonDecode(response.body);
     // setState ((){
     //   this.Temp_api=results['main']['temp'];
@@ -59,6 +61,9 @@ class _PredModelState extends State<PredModel> {
 
     var Temp_ = double.parse(Temp_api.toString());
     var Humidity_ = double.parse(Humidity_api.toString());
+    print(Temp_.toString()+ " Temp_");
+    print(Humidity_.toString()+ " Humidity_");
+
 
     //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
     //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
@@ -69,11 +74,11 @@ class _PredModelState extends State<PredModel> {
     print(  N_Controller.text + ' N_Controller.text');
     print(  P_Controller.text + ' P_Controller.text');
     print(  K_Controller.text + ' K_Controller.text');
-    print(  Temp_Controller.text + ' Temp_Controller.text');
-    print(  Humidity_Controller.text + ' Humidity_Controller.text');
+    // print(  Temp_Controller.text + ' Temp_Controller.text');
+    // print(  Humidity_Controller.text + ' Humidity_Controller.text');
     print(  Ph_Controller.text + ' Ph_Controller.text');
     print(  Rain_Controller.text + ' Rain_Controller.text');
-
+    print(  City_Controller.text + ' City_Controller.text');
 
 
     var output = List.filled(22, 0).reshape([1, 22]);
@@ -182,7 +187,7 @@ class _PredModelState extends State<PredModel> {
               ),
             ),
 
-            TextField(                                           // K
+            TextField(                                            // K
               controller: K_Controller,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.left,
@@ -193,27 +198,27 @@ class _PredModelState extends State<PredModel> {
               ),
             ),
 
-            TextField(                                           // Temp
-              controller: Temp_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Temprature',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
+            // TextField(                                           // Temp
+            //   controller: Temp_Controller,
+            //   keyboardType: TextInputType.number,
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER Temprature',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
 
-            TextField(                                            // Humidity
-              controller: Humidity_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Humidity Content',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
+            // TextField(                                            // Humidity
+            //   controller: Humidity_Controller,
+            //   keyboardType: TextInputType.number,
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER Humidity Content',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
 
             TextField(                                           // Ph
               controller: Ph_Controller,
@@ -237,11 +242,22 @@ class _PredModelState extends State<PredModel> {
               ),
             ),
 
-            Text(
-              "change the input values in code to get the prediction",
-              style: TextStyle(fontSize: 16),
+            TextField(                                               // City
+              controller: City_Controller,
+
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'PLEASE ENTER City (Temp, Humidity feteched by API)',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
             ),
-            Text(N_Controller.text),
+
+            // Text(
+            //   "change the input values in code to get the prediction",
+            //   style: TextStyle(fontSize: 16),
+            // ),
+
 
             SizedBox(height: 12),
             MaterialButton(
