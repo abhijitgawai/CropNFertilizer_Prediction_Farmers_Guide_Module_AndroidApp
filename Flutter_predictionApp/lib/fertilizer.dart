@@ -66,6 +66,11 @@ class _PredModelState extends State<Fertilizer> {
     print(Temp_.toString()+ " Temp_");
     print(Humidity_.toString()+ " Humidity_");
 
+    print(Soil_);
+    print(Soil_.name);
+    print(Crop_);
+    print(Crop_.name);
+
 
     //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
     //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
@@ -73,8 +78,57 @@ class _PredModelState extends State<Fertilizer> {
     //var input = [[ N_, P_, K_, Temp_, Humidity_, Ph_, Rain_]];
     // var input = [[Temp_api, Humidity_api, Moist_, N_, K_, P_, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]];
     //var input = [[3.0, 3.0, 46.0, 5.0, 7.0, 8.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]];
-    var input = [[Temp_, Humidity_, Moist_, N_, K_, P_, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]];
+    var input = [[Temp_, Humidity_, Moist_, N_, K_, P_, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
 
+    if (Soil_.name == "Soil Type_Black"){
+      input[0][6]=1.0;
+    }
+    if (Soil_.name == "Soil Type_Clayey"){
+      input[0][7]=1.0;
+    }
+    if (Soil_.name == "Soil Type_Loamy"){
+      input[0][8]=1.0;
+    }
+    if (Soil_.name == "Soil Type_Red"){
+      input[0][9]=1.0;
+    }
+
+    if (Soil_.name == "Soil Type_Sandy"){
+      input[0][10]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Barley"){
+      input[0][11]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Cotton"){
+      input[0][12]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Ground Nuts"){
+      input[0][13]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Maize"){
+      input[0][14]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Millets"){
+      input[0][15]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Oil seeds"){
+      input[0][16]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Paddy"){
+      input[0][17]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Pulses"){
+      input[0][18]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Sugarcane"){
+      input[0][19]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Tobacco"){
+      input[0][20]=1.0;
+    }
+    if (Crop_.name == "Crop Type_Wheat"){
+      input[0][21]=1.0;
+    }
 
     print('THis is controllers input');
     print(  N_Controller.text + ' N_Controller.text');
@@ -128,8 +182,11 @@ class _PredModelState extends State<Fertilizer> {
 
     });
   }
-  User selectedUser;
-  List<User> users = <User>[User('Foo'), User('Bar')];
+  User Soil_;
+  User Crop_;
+  List<User> soil = <User>[User('Soil Type_Black'), User('Soil Type_Clayey'), User('Soil Type_Loamy'), User('Soil Type_Red')];
+  List<User> crop = <User>[User('Crop Type_Barley'), User('Crop Type_Cotton'), User('Crop Type_Ground Nuts'), User('Crop Type_Maize'), User('Crop Type_Millets'), User('Crop Type_Oil seeds'), User('Crop Type_Paddy'), User('Crop Type_Pulses'), User('Crop Type_Sugarcane'), User('Crop Type_Tobacco'), User('Crop Type_Wheat')];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,17 +281,18 @@ class _PredModelState extends State<Fertilizer> {
             //   "change the input values in code to get the prediction",
             //   style: TextStyle(fontSize: 16),
             // ),
-        Row(                                         // Soil Type
-        children: [ Text("Soil Type ->  "),
-            DropdownButton<User>(
-              hint: new Text("Select a user"),
-              value: selectedUser,
+        // Row(
+        // children: [ //Text("Soil Type ->  "),
+
+            DropdownButton<User>(                             // Soil Type
+              hint: new Text("Select Soil Type"),
+              value: Soil_,
               onChanged: (User newValue) {
                 setState(() {
-                  selectedUser = newValue;
+                  Soil_ = newValue;
                 });
               },
-              items: users.map((User user) {
+              items: soil.map((User user) {
                 return new DropdownMenuItem<User>(
                   value: user,
                   child: new Text(
@@ -244,20 +302,20 @@ class _PredModelState extends State<Fertilizer> {
                 );
               }).toList(),
             ),
-          ],
-        ),
+         // ],
+        //),
 
-            Row(                                   // Crop Type
-              children: [ Text("Crop Type ->  "),
-                DropdownButton<User>(
-                  hint: new Text("Select a user"),
-                  value: selectedUser,
+            // Row(
+            //   children: [ //Text("Crop Type ->  "),
+                DropdownButton<User>(                             // Crop Type
+                  hint: new Text("Select Crop Type"),
+                  value: Crop_,
                   onChanged: (User newValue) {
                     setState(() {
-                      selectedUser = newValue;
+                      Crop_ = newValue;
                     });
                   },
-                  items: users.map((User user) {
+                  items: crop.map((User user) {
                     return new DropdownMenuItem<User>(
                       value: user,
                       child: new Text(
@@ -267,8 +325,8 @@ class _PredModelState extends State<Fertilizer> {
                     );
                   }).toList(),
                 ),
-              ],
-            ),
+             // ],
+            //),
 
             SizedBox(height: 12),
             MaterialButton(
