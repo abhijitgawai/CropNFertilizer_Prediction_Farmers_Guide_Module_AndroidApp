@@ -9,79 +9,80 @@ import 'dart:convert';
 
 class Fertilizer extends StatefulWidget {
   @override
-  _PredModelState createState() => _PredModelState();
+  _PredModelState_fert createState() => _PredModelState_fert();
 }
 
-class _PredModelState extends State<Fertilizer> {
+class _PredModelState_fert extends State<Fertilizer> {
   var predValue = "";
   @override
   void initState() {
     super.initState();
     predValue = "click predict button";
   }
-  final N_Controller = TextEditingController();
-  final P_Controller = TextEditingController();
-  final K_Controller = TextEditingController();
-  // final Temp_Controller = TextEditingController();              //del
-  // final Humidity_Controller = TextEditingController();          //del
-  final Ph_Controller = TextEditingController();
-  final Rain_Controller = TextEditingController();              //del
-  final City_Controller = TextEditingController();
+  // final N_Controller = TextEditingController();
+  // final P_Controller = TextEditingController();
+  // final K_Controller = TextEditingController();
+  // // final Temp_Controller = TextEditingController();              //del
+  // // final Humidity_Controller = TextEditingController();          //del
+  // final Ph_Controller = TextEditingController();
+  // final Rain_Controller = TextEditingController();              //del
+  // final City_Controller = TextEditingController();
+  //
+  // var Temp_api;
+  // var Humidity_api;
 
-  var Temp_api;
-  var Humidity_api;
-
-  Future<void> predData(  ) async { //String strr
-    final interpreter = await Interpreter.fromAsset('ml_model.tflite');
+  Future<void> Fertilizer_function(  ) async { //String strr
+    final interpreter = await Interpreter.fromAsset('fertilizer_model.tflite');
     //var input = [ [90.0,42.0,43.0,20.0,82.0,6.0,202.0] ];
-    var N_ = double.parse(N_Controller.text);
-    var P_ = double.parse(P_Controller.text);
-    var K_ = double.parse(K_Controller.text);
-    //var Temp_ = double.parse(Temp_Controller.text);
-    //var Humidity_ = double.parse(Humidity_Controller.text);
-    var Ph_ = double.parse(Ph_Controller.text);
-    var Rain_ = double.parse(Rain_Controller.text);
-    var City_ = City_Controller.text;
+    // var N_ = double.parse(N_Controller.text);
+    // var P_ = double.parse(P_Controller.text);
+    // var K_ = double.parse(K_Controller.text);
+    // //var Temp_ = double.parse(Temp_Controller.text);
+    // //var Humidity_ = double.parse(Humidity_Controller.text);
+    // var Ph_ = double.parse(Ph_Controller.text);
+    // var Rain_ = double.parse(Rain_Controller.text);
+    // var City_ = City_Controller.text;
 
 
 
-    http.Response response = await http.get("https://api.openweathermap.org/data/2.5/weather?q="+City_.toString()+"&units=metric&appid=e43ac111fdcd8670e101cf9d0f9c7749");  // any way this is secret
-    var results =jsonDecode(response.body);
+    // http.Response response = await http.get("https://api.openweathermap.org/data/2.5/weather?q="+City_.toString()+"&units=metric&appid=e43ac111fdcd8670e101cf9d0f9c7749");  // any way this is secret
+    // var results =jsonDecode(response.body);
     // setState ((){
     //   this.Temp_api=results['main']['temp'];
     //   this.Humidity_api=results['main']['humidity'];
     // });
 
-    Temp_api=results['main']['temp'];
-    Humidity_api=results['main']['humidity'];
-
-    print("This is what I wanted below");
-    print(Temp_api.toString());
-    print(Humidity_api.toString());
-
-    var Temp_ = double.parse(Temp_api.toString());
-    var Humidity_ = double.parse(Humidity_api.toString());
-    print(Temp_.toString()+ " Temp_");
-    print(Humidity_.toString()+ " Humidity_");
+    // Temp_api=results['main']['temp'];
+    // Humidity_api=results['main']['humidity'];
+    //
+    // print("This is what I wanted below");
+    // print(Temp_api.toString());
+    // print(Humidity_api.toString());
+    //
+    // var Temp_ = double.parse(Temp_api.toString());
+    // var Humidity_ = double.parse(Humidity_api.toString());
+    // print(Temp_.toString()+ " Temp_");
+    // print(Humidity_.toString()+ " Humidity_");
 
 
     //var input = [ [ N_Controller.text, P_Controller.text, K_Controller.text, Temp_Controller.text, Humidity_Controller.text, Ph_Controller.text, Rain_Controller.text       ]  ];
     //var input =[[  onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne,onePointOne  ]];
     //print(strr);
-    var input = [[ N_, P_, K_, Temp_, Humidity_, Ph_, Rain_]];
+    //var input = [[ N_, P_, K_, Temp_, Humidity_, Ph_, Rain_]];
+    var input = [[28.0, 54.0, 46.0, 35.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0]];
 
-    print('THis is controllers input');
-    print(  N_Controller.text + ' N_Controller.text');
-    print(  P_Controller.text + ' P_Controller.text');
-    print(  K_Controller.text + ' K_Controller.text');
-    // print(  Temp_Controller.text + ' Temp_Controller.text');
-    // print(  Humidity_Controller.text + ' Humidity_Controller.text');
-    print(  Ph_Controller.text + ' Ph_Controller.text');
-    print(  Rain_Controller.text + ' Rain_Controller.text');
-    print(  City_Controller.text + ' City_Controller.text');
+    // print('THis is controllers input');
+    // print(  N_Controller.text + ' N_Controller.text');
+    // print(  P_Controller.text + ' P_Controller.text');
+    // print(  K_Controller.text + ' K_Controller.text');
+    // // print(  Temp_Controller.text + ' Temp_Controller.text');
+    // // print(  Humidity_Controller.text + ' Humidity_Controller.text');
+    // print(  Ph_Controller.text + ' Ph_Controller.text');
+    // print(  Rain_Controller.text + ' Rain_Controller.text');
+    // print(  City_Controller.text + ' City_Controller.text');
 
 
-    var output = List.filled(22, 0).reshape([1, 22]);
+    var output = List.filled(7, 0).reshape([1, 7]);
     interpreter.run(input, output);
     //print(output);
     print(output[0]);
@@ -91,7 +92,7 @@ class _PredModelState extends State<Fertilizer> {
     var  x=0;
     var  maax=output[0][0];
     var index=0;
-    for(x;x<22;x++)
+    for(x;x<7;x++)
     {
       if (output[0][x]>maax)
       {
@@ -105,49 +106,49 @@ class _PredModelState extends State<Fertilizer> {
     this.setState(() {
       //predValue = "abhi";//index.toString();//output[0][0].toString();
       if (index==0)
-        predValue='Apple';
+        predValue='a';
       if (index==1)
-        predValue='Banana';
+        predValue='b';
       if (index==2)
-        predValue='Black Gram';
+        predValue='c';
       if (index==3)
-        predValue='Chickapea';
+        predValue='d';
       if (index==4)
-        predValue='Coconut';
+        predValue='e';
       if (index==5)
-        predValue='Coffee';
+        predValue='f';
       if (index==6)
-        predValue='Cotton';
+        predValue='g';
       if (index==7)
-        predValue='Grapes';
-      if (index==8)
-        predValue='Jute';
-      if (index==9)
-        predValue='kidneybeans';
-      if (index==10)
-        predValue='Lentil';
-      if (index==11)
-        predValue='Maize';
-      if (index==12)
-        predValue='Mango';
-      if (index==13)
-        predValue='mothbeans';
-      if (index==14)
-        predValue='mungbean';
-      if (index==15)
-        predValue='Muskmelon';
-      if (index==16)
-        predValue='Orange';
-      if (index==17)
-        predValue='Papaya';
-      if (index==18)
-        predValue='pigeonpeas';
-      if (index==19)
-        predValue='Pomegranate';
-      if (index==20)
-        predValue='Rice';
-      if (index==21)
-        predValue='Watermelon';
+        predValue='h';
+      // if (index==8)
+      //   predValue='Jute';
+      // if (index==9)
+      //   predValue='kidneybeans';
+      // if (index==10)
+      //   predValue='Lentil';
+      // if (index==11)
+      //   predValue='Maize';
+      // if (index==12)
+      //   predValue='Mango';
+      // if (index==13)
+      //   predValue='mothbeans';
+      // if (index==14)
+      //   predValue='mungbean';
+      // if (index==15)
+      //   predValue='Muskmelon';
+      // if (index==16)
+      //   predValue='Orange';
+      // if (index==17)
+      //   predValue='Papaya';
+      // if (index==18)
+      //   predValue='pigeonpeas';
+      // if (index==19)
+      //   predValue='Pomegranate';
+      // if (index==20)
+      //   predValue='Rice';
+      // if (index==21)
+      //   predValue='Watermelon';
 
 
 
@@ -165,93 +166,93 @@ class _PredModelState extends State<Fertilizer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            TextField(                                               // N
-              controller: N_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Nitrogen content',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-
-            TextField(                                              // P
-              controller: P_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Phosphorus Content',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-
-            TextField(                                            // K
-              controller: K_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Potassium Content',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-
-            // TextField(                                           // Temp
-            //   controller: Temp_Controller,
+            // TextField(                                               // N
+            //   controller: N_Controller,
             //   keyboardType: TextInputType.number,
             //   textAlign: TextAlign.left,
             //   decoration: InputDecoration(
             //     border: InputBorder.none,
-            //     hintText: 'PLEASE ENTER Temprature',
+            //     hintText: 'PLEASE ENTER Nitrogen content',
             //     hintStyle: TextStyle(color: Colors.grey),
             //   ),
             // ),
-
-            // TextField(                                            // Humidity
-            //   controller: Humidity_Controller,
+            //
+            // TextField(                                              // P
+            //   controller: P_Controller,
             //   keyboardType: TextInputType.number,
             //   textAlign: TextAlign.left,
             //   decoration: InputDecoration(
             //     border: InputBorder.none,
-            //     hintText: 'PLEASE ENTER Humidity Content',
+            //     hintText: 'PLEASE ENTER Phosphorus Content',
             //     hintStyle: TextStyle(color: Colors.grey),
             //   ),
             // ),
-
-            TextField(                                           // Ph
-              controller: Ph_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Ph value',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-
-            TextField(                                               // Rain
-              controller: Rain_Controller,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER Rain Content',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-
-            TextField(                                               // City
-              controller: City_Controller,
-
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'PLEASE ENTER City (Temp, Humidity feteched by API)',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
+            //
+            // TextField(                                            // K
+            //   controller: K_Controller,
+            //   keyboardType: TextInputType.number,
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER Potassium Content',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
+            //
+            // // TextField(                                           // Temp
+            // //   controller: Temp_Controller,
+            // //   keyboardType: TextInputType.number,
+            // //   textAlign: TextAlign.left,
+            // //   decoration: InputDecoration(
+            // //     border: InputBorder.none,
+            // //     hintText: 'PLEASE ENTER Temprature',
+            // //     hintStyle: TextStyle(color: Colors.grey),
+            // //   ),
+            // // ),
+            //
+            // // TextField(                                            // Humidity
+            // //   controller: Humidity_Controller,
+            // //   keyboardType: TextInputType.number,
+            // //   textAlign: TextAlign.left,
+            // //   decoration: InputDecoration(
+            // //     border: InputBorder.none,
+            // //     hintText: 'PLEASE ENTER Humidity Content',
+            // //     hintStyle: TextStyle(color: Colors.grey),
+            // //   ),
+            // // ),
+            //
+            // TextField(                                           // Ph
+            //   controller: Ph_Controller,
+            //   keyboardType: TextInputType.number,
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER Ph value',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
+            //
+            // TextField(                                               // Rain
+            //   controller: Rain_Controller,
+            //   keyboardType: TextInputType.number,
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER Rain Content',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
+            //
+            // TextField(                                               // City
+            //   controller: City_Controller,
+            //
+            //   textAlign: TextAlign.left,
+            //   decoration: InputDecoration(
+            //     border: InputBorder.none,
+            //     hintText: 'PLEASE ENTER City (Temp, Humidity feteched by API)',
+            //     hintStyle: TextStyle(color: Colors.grey),
+            //   ),
+            // ),
 
             // Text(
             //   "change the input values in code to get the prediction",
@@ -267,7 +268,7 @@ class _PredModelState extends State<Fertilizer> {
                 style: TextStyle(fontSize: 25),
               ),
 
-              onPressed: predData,
+              onPressed: Fertilizer_function,
               //onPressed: () {
               //  predData( 'abhi' );
               //},
