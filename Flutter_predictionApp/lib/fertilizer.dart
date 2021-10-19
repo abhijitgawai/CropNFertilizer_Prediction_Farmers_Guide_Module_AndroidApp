@@ -197,7 +197,7 @@ class _PredModelState extends State<Fertilizer> {
             //   ),
             // ),
             //
-            TextField(                                               // Rain
+            TextField(                                               // Moist
               controller: Moist_Controller,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.left,
@@ -224,8 +224,8 @@ class _PredModelState extends State<Fertilizer> {
             //   "change the input values in code to get the prediction",
             //   style: TextStyle(fontSize: 16),
             // ),
-        Row(
-        children: [
+        Row(                                         // Soil Type
+        children: [ Text("Soil Type ->  "),
             DropdownButton<User>(
               hint: new Text("Select a user"),
               value: selectedUser,
@@ -246,6 +246,29 @@ class _PredModelState extends State<Fertilizer> {
             ),
           ],
         ),
+
+            Row(                                   // Crop Type
+              children: [ Text("Crop Type ->  "),
+                DropdownButton<User>(
+                  hint: new Text("Select a user"),
+                  value: selectedUser,
+                  onChanged: (User newValue) {
+                    setState(() {
+                      selectedUser = newValue;
+                    });
+                  },
+                  items: users.map((User user) {
+                    return new DropdownMenuItem<User>(
+                      value: user,
+                      child: new Text(
+                        user.name,
+                        style: new TextStyle(color: Colors.black),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
 
             SizedBox(height: 12),
             MaterialButton(
